@@ -118,47 +118,65 @@ mraa_rock64()
     b->aio_non_seq = 1;
     b->chardev_capable = 1;
 
+//    typedef struct {
+//        /*@{*/
+//        mraa_boolean_t valid:1;     /**< Is the pin valid at all */
+//        mraa_boolean_t gpio:1;      /**< Is the pin gpio capable */
+//        mraa_boolean_t pwm:1;       /**< Is the pin pwm capable */
+//        mraa_boolean_t fast_gpio:1; /**< Is the pin fast gpio capable */
+//        mraa_boolean_t spi:1;       /**< Is the pin spi capable */
+//        mraa_boolean_t i2c:1;       /**< Is the pin i2c capable */
+//        mraa_boolean_t aio:1;       /**< Is the pin analog input capable */
+//        mraa_boolean_t uart:1;       /**< Is the pin uart capable */
+//        /*@}*/
+//    } mraa_pincapabilities_t;
+
+//    https://github.com/Leapo/Rock64-R64.GPIO/wiki/GPIO-Modes
+//    http://synfare.com/599N105E/hwdocs/rock64/index.html
+
     mraa_rock64_pininfo(b, 0,   -1, (mraa_pincapabilities_t){0,0,0,0,0,0,0,0}, "INVALID");
     mraa_rock64_pininfo(b, 1,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
     mraa_rock64_pininfo(b, 2,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
-    mraa_rock64_pininfo(b, 3,   71, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SDA7");
+    mraa_rock64_pininfo(b, 3,   89, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2_D1 I2C0_SDA NET_Speed");
     mraa_rock64_pininfo(b, 4,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
-    mraa_rock64_pininfo(b, 5,   72, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SCL7");
+    mraa_rock64_pininfo(b, 5,   88, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2_D0 I2C0_SCL NET_Link");
     mraa_rock64_pininfo(b, 6,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 7,   75, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI2_CLK");
-    mraa_rock64_pininfo(b, 8,  148, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "TXD2");
+    mraa_rock64_pininfo(b, 7,   60, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO1_D4 CLK32OUT_M1");
+    mraa_rock64_pininfo(b, 8,   64, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO2_A0 UART2_TX");
     mraa_rock64_pininfo(b, 9,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 10, 147, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "RXD2");
-    mraa_rock64_pininfo(b, 11, 146, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "PWM0");
-    mraa_rock64_pininfo(b, 12, 131, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_A3");
-    mraa_rock64_pininfo(b, 13, 150, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "PWM1");
+    mraa_rock64_pininfo(b, 10,  65, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO2_A1 UART2_RX");
+    mraa_rock64_pininfo(b, 11,  -1, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "NC (66 GPIO2_A2 IR_RX)");
+    mraa_rock64_pininfo(b, 12,  67, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_A3 (input only?)");
+    mraa_rock64_pininfo(b, 13,  -1, (mraa_pincapabilities_t){1,0,1,0,0,0,0,0}, "GPIO0_A0 vbus-drv USB3 power control (U2502 Enable)");
     mraa_rock64_pininfo(b, 14,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 15, 149, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_C5");
-    mraa_rock64_pininfo(b, 16, 154, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_D2");
+    mraa_rock64_pininfo(b, 15, 100, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO3_A4 (uart1_tx)");
+    mraa_rock64_pininfo(b, 16, 101, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3_A5");
     mraa_rock64_pininfo(b, 17,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
-    mraa_rock64_pininfo(b, 18, 156, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_D4");
-    mraa_rock64_pininfo(b, 19,  40, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "SPI1TX,TXD4");
+    mraa_rock64_pininfo(b, 18, 102, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO3_A6 (uart1_rx)");
+    mraa_rock64_pininfo(b, 19,  97, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "GPIO3_A1 SPI_TXD_M2");
     mraa_rock64_pininfo(b, 20,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 21,  39, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "SPI1RX,RXD4");
-    mraa_rock64_pininfo(b, 22, 157, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_D5");
-    mraa_rock64_pininfo(b, 23,  41, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI1CLK");
-    mraa_rock64_pininfo(b, 24,  42, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI1CS");
+    mraa_rock64_pininfo(b, 21,  98, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "GPIO3_A2 SPI_RXD_M2");
+    mraa_rock64_pininfo(b, 22, 103, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3_A7");
+    mraa_rock64_pininfo(b, 23,  96, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO3_A0 SPI_CLK_M2");
+    mraa_rock64_pininfo(b, 24, 104, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO3_B0 SPI_CSN0_M2");
     mraa_rock64_pininfo(b, 25,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 26,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,1,0}, "ADC_IN0");
-    mraa_rock64_pininfo(b, 27,  64, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SDA2");
-    mraa_rock64_pininfo(b, 28,  65, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SCL2");
-    mraa_rock64_pininfo(b, 29,  74, (mraa_pincapabilities_t){1,1,0,0,1,1,0,0}, "SCL6,SPI2RX");
+    mraa_rock64_pininfo(b, 26,  76, (mraa_pincapabilities_t){1,1,0,0,0,0,1,0}, "GPIO2_B4 (SPI_CSN1_M0)");
+    mraa_rock64_pininfo(b, 27,  68, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2_A4 I2C1_SDA_PMIC");
+    mraa_rock64_pininfo(b, 28,  69, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2_A5 I2C1_SCL_PMIC");
+    mraa_rock64_pininfo(b, 29,  -1, (mraa_pincapabilities_t){1,0,0,0,1,1,0,0}, "(70 GPIO2_A6 PMIC_INT)");
     mraa_rock64_pininfo(b, 30,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 31,  73, (mraa_pincapabilities_t){1,1,0,0,1,1,0,0}, "SDA6,SPI2TX");
-    mraa_rock64_pininfo(b, 32, 112, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3_C0");
-    mraa_rock64_pininfo(b, 33,  76, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI2CS");
+    mraa_rock64_pininfo(b, 31,  -1, (mraa_pincapabilities_t){1,0,0,0,1,1,0,0}, "(2 GPIO0_A2 USB20_HOST_DRV, USB2 power control)");
+    mraa_rock64_pininfo(b, 32,  38, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A6 SDMMC0_CLK");
+    mraa_rock64_pininfo(b, 33,  32, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO1_A0 SDMMC0_D0");
     mraa_rock64_pininfo(b, 34,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 35, 133, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_A5");
-    mraa_rock64_pininfo(b, 36, 132, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_A4");
-    mraa_rock64_pininfo(b, 37, 158, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_D6");
-    mraa_rock64_pininfo(b, 38, 134, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_A6");
+    mraa_rock64_pininfo(b, 35,  33, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A1 SDMMC0_D1");
+    mraa_rock64_pininfo(b, 36,  37, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A5 SDMMC0_DET");
+    mraa_rock64_pininfo(b, 37,  34, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A2 SDMMC0_D2/JTAG_TCK");
+    mraa_rock64_pininfo(b, 38,  36, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A4 SDMMC0_CMD");
     mraa_rock64_pininfo(b, 39,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-    mraa_rock64_pininfo(b, 40, 135, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4_A7");
+    mraa_rock64_pininfo(b, 40,  35, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A3 SDMMC0_D3/JTAG_TMS DET");
+
+    // TODO:  Add second header (Pi-5+) here:
 
     return b;
 }
