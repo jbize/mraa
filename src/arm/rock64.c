@@ -21,7 +21,7 @@
 #define PLATFORM_NAME_ROCK64 "Rock64"
 #define MAX_SIZE 64
 
-const char* rock64_serialdev[MRAA_ROCK64_UART_COUNT] = { "/dev/ttyS2", "/dev/ttyS4" };
+const char* rock64_serialdev[MRAA_ROCK64_UART_COUNT] = { "/dev/ttyS2" };
 
 void
 mraa_rock64_pininfo(mraa_board_t* board, int index, int sysfs_pin, mraa_pincapabilities_t pincapabilities_t, char* fmt, ...)
@@ -77,27 +77,25 @@ mraa_rock64()
     b->uart_dev_count = MRAA_ROCK64_UART_COUNT;
     b->def_uart_dev = 0;
     b->uart_dev[0].index = 2;
-    b->uart_dev[1].index = 4;
 
     // I2C
     if (strncmp(b->platform_name, PLATFORM_NAME_ROCK64, MAX_SIZE) == 0) {
         b->i2c_bus_count = MRAA_ROCK64_I2C_COUNT;
         b->def_i2c_bus = 0;
-        b->i2c_bus[0].bus_id = 7;
-        b->i2c_bus[1].bus_id = 2;
-        b->i2c_bus[2].bus_id = 6;
+        b->i2c_bus[0].bus_id = 1;
+        b->i2c_bus[1].bus_id = 4;
     }
 
     // SPI
     b->spi_bus_count = MRAA_ROCK64_SPI_COUNT;
     b->def_spi_bus = 0;
-    b->spi_bus[0].bus_id = 32766;
-    b->spi_bus[1].bus_id = 32765;
+//    b->spi_bus[0].bus_id = 32766;
+//    b->spi_bus[1].bus_id = 32765;
 
     b->pwm_dev_count = MRAA_ROCK64_PWM_COUNT;
-    b->pwm_default_period = 500;
-    b->pwm_max_period = 2147483;
-    b->pwm_min_period = 1;
+//    b->pwm_default_period = 500;
+//    b->pwm_max_period = 2147483;
+//    b->pwm_min_period = 1;
 
     b->pins = (mraa_pininfo_t*) malloc(sizeof(mraa_pininfo_t) * b->phy_pin_count);
     if (b->pins == NULL) {
