@@ -1,6 +1,6 @@
 /*
- * Author: Brian <brian@vamrs.com>
- * Copyright (c) 2019 Vamrs Corporation.
+ * Author: John <jbize@godswind.org>
+ * Copyright (c) 2022 Cantada, Inc..
  *
  * SPDX-License-Identifier: MIT
  */
@@ -82,6 +82,7 @@ mraa_rock64()
     if (strncmp(b->platform_name, PLATFORM_NAME_ROCK64, MAX_SIZE) == 0) {
         b->i2c_bus_count = MRAA_ROCK64_I2C_COUNT;
         b->def_i2c_bus = 0;
+        // My Rock64 has no i2c-0, only i2c-1 (pins 27 & 28) & i2c-4 (pins 3 & 5)
         b->i2c_bus[0].bus_id = 1;
         b->i2c_bus[1].bus_id = 4;
     }
@@ -134,8 +135,9 @@ mraa_rock64()
 //    https://github.com/Leapo/Rock64-R64.GPIO/wiki/GPIO-Modes
 //    http://synfare.com/599N105E/hwdocs/rock64/index.html
 
+    // first 40-pin header (Pi-2) here:
     mraa_rock64_pininfo(b, 0,   -1, (mraa_pincapabilities_t){0,0,0,0,0,0,0,0}, "INVALID");
-    mraa_rock64_pininfo(b, 1,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
+    mraa_rock64_pininfo(b, 1,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3.3V");
     mraa_rock64_pininfo(b, 2,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
     mraa_rock64_pininfo(b, 3,   89, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2_D1 I2C0_SDA NET_Speed");
     mraa_rock64_pininfo(b, 4,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
@@ -151,7 +153,7 @@ mraa_rock64()
     mraa_rock64_pininfo(b, 14,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
     mraa_rock64_pininfo(b, 15, 100, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO3_A4 (uart1_tx)");
     mraa_rock64_pininfo(b, 16, 101, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3_A5");
-    mraa_rock64_pininfo(b, 17,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
+    mraa_rock64_pininfo(b, 17,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3.3V");
     mraa_rock64_pininfo(b, 18, 102, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO3_A6 (uart1_rx)");
     mraa_rock64_pininfo(b, 19,  97, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "GPIO3_A1 SPI_TXD_M2");
     mraa_rock64_pininfo(b, 20,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
@@ -176,7 +178,31 @@ mraa_rock64()
     mraa_rock64_pininfo(b, 39,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
     mraa_rock64_pininfo(b, 40,  35, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1_A3 SDMMC0_D3/JTAG_TMS DET");
 
-    // TODO:  Add second header (Pi-5+) here:
+    // second 20-pin header (Pi-5+) here:
+    mraa_rock64_pininfo(b, 41,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3.3V");
+    mraa_rock64_pininfo(b, 42,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
+    mraa_rock64_pininfo(b, 43,  81, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C1 I2S1_LRCKTX");
+    mraa_rock64_pininfo(b, 44,  82, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C2 I2S1_SCLK");
+    mraa_rock64_pininfo(b, 45,  87, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C7 I2S1_SDO");
+    mraa_rock64_pininfo(b, 46,  83, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C3 I2S1_SDI");
+    mraa_rock64_pininfo(b, 47,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+    mraa_rock64_pininfo(b, 48,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+    mraa_rock64_pininfo(b, 49,  80, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C0 I2S1_LRCKRX");
+    mraa_rock64_pininfo(b, 50,  79, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_B7 I2S1_MCLK");
+    mraa_rock64_pininfo(b, 51,  85, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C5 I2S1_SDO2");
+    mraa_rock64_pininfo(b, 52,  84, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C4 I2S1_SDO1");
+    mraa_rock64_pininfo(b, 53,  27, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO0_D3 SPDIF_TX_MX (otg-vbus)");
+    mraa_rock64_pininfo(b, 54,  86, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_C6 I2S1_SDO3");
+    mraa_rock64_pininfo(b, 55,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+    mraa_rock64_pininfo(b, 56,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+    mraa_rock64_pininfo(b, 57,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "NET RD+");
+    mraa_rock64_pininfo(b, 58,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "NET_RD-");
+    mraa_rock64_pininfo(b, 59,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "NET TX+");
+    mraa_rock64_pininfo(b, 60,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "NET_TX-");
+
+    // third 2-pin header here:
+    mraa_rock64_pininfo(b, 61,  89, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_D1 I2C0_SDA NET_Speed");
+    mraa_rock64_pininfo(b, 62,  88, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO2_D0 I2C0_SCL NET_Link");
 
     return b;
 }
