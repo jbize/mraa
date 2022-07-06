@@ -3,6 +3,8 @@
  * Copyright (c) 2022 Cantada, Inc..
  *
  * SPDX-License-Identifier: MIT
+ *
+ * Copied from rockpi4.c
  */
 
 #include <mraa/common.h>

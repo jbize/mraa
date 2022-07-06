@@ -1,8 +1,10 @@
 /*
- * Author: Brian <brian@vamrs.com>
- * Copyright (c) 2019 Vamrs Corporation.
+ * Author: John <jbize@godswind.org>
+ * Copyright (c) 2022 Cantada, Inc..
  *
  * SPDX-License-Identifier: MIT
+ *
+ * Copied from rockpi4.h
  */
 
 #pragma once
